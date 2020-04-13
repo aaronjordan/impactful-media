@@ -1,12 +1,13 @@
 const nodemailer = require('nodemailer');
 const mailgun = require('nodemailer-mailgun-transport');
-const domain = 'impactfulmedia.co';
 require('dotenv').config();
 
+const recpnt = process.env.REC_EMAIL;
+const domain = process.env.WWW_DOMAIN;
 const auth = {
   auth: {
     api_key: process.env.API_MAIL_KEY,
-    domain: 'sandbox31c511107dcf4796abf8c84583c21bce.mailgun.org'
+    domain: process.env.MG_DOMAIN
   }
 };
 
@@ -14,15 +15,18 @@ const auth = {
 const transporter = nodemailer.createTransport(mailgun(auth));
 
 const sendMail = (name, email, body, cb) => {
+  const time = Date().toString();
   const mailOptions = {
     from: `contactform@${domain}`,
-    to: `aaron@${domain}`,
-    subject: `Contact Form Submission from ${domain}`,
-    text: `A new form submission was recieved from ${name} @ ${email}:
-    ${body}`
+    to: `${recpnt}`,
+    subject: `New Contact Form Submission from ${domain}`,
+    text: `A new form submission was recieved from ${name} (reply-to: ${email}):
+    ${body}
+    
+    Message passed at ${time}.`
   };
   
-  transporter.sendMail(mailOptions, (err, data) => {
+  transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
       cb(err, null);
     } else {
@@ -31,4 +35,4 @@ const sendMail = (name, email, body, cb) => {
   });
 };
 
-module.exports = sendMail();
+module.exports = sendMail;

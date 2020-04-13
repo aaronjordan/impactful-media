@@ -18,15 +18,13 @@ app.use(express.json());
 
 app.post('/email', (req, res) => {
   const { name, email, body } = req.body;
-  // name, email, body
+
   sendMail(name, email, body, (err, data) => {
     if(err) {
-      res.status(500).json({message: 'Internal Error'});
-    } else {
-      res.json({message: 'Form email was sent.'});
+      return res.status(500).json({message: 'Internal Error', ok: false});
     }
+    return res.json({message: 'Form email was sent.', ok: true});
   });
-  res.json({message: 'message recieved!'});
 });
 
 app.get('/', (req, res) => {
