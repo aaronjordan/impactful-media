@@ -1,0 +1,16 @@
+{
+  "name": "impactful-media-website",
+  "version": "1.0.0",
+  "description": "the impactful media website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aaron Jordan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemailer": "^6.4.6",
+    "nodemailer-mailgun-transport": "^2.0.0"
+  }
+}
