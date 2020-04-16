@@ -29,7 +29,11 @@ app.post('/email', (req, res) => {
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
-})
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is starting on port ${PORT}`);
